@@ -1,6 +1,6 @@
 # What is appmapper?
 
-Appmapper is a tool that attaches to your primary network interface and collects information about and inbound or outbound TCP connections (by looking at SYN packets) as well as maps out DNS recursion to find FQDNS. This is useful if you would like to put a legacy application behind firewalls and you don't really know much about the app itself. Let this run for a few days/weeks and your logfile will show every connection without the need of actual PCAPs or span ports.
+Appmapper is a tool that attaches to your primary network interface and collects information about and inbound or outbound TCP connections (by looking at SYN packets) as well as maps out DNS recursion to find FQDNs. This is useful if you would like to put a legacy application behind firewalls and you don't really know much about the app itself. Let this run for a few days/weeks and your logfile will show every connection without the need of actual PCAPs or span ports.
 
 # How to use?
 
