@@ -4,7 +4,7 @@ Appmapper is a tool that attaches to your primary network interface and collects
 
 # How to use?
 
-For linux just run ``appmapper-linux-install.sh`` from the repo it will deploy a small chroot into a directory of choice. Once complete run ``start.sh`` as root from the installation directory.
+For linux just run ``appmapper-linux-install.sh`` from the repo it will deploy a small chroot into a directory of choice. Once complete run ``start.sh`` as root from the installation directory. Output will be shown on screen as well as logged to appmapper.log in the same directory.
 
 ## Running as root? DANGER!
 
@@ -12,7 +12,7 @@ Unfortunately recording network traffic requires root permissions. Luckily the s
 
 ## I have logs now, what now?
 
-Every line is prefixed with a ``[TAG]``  tag - this indicates either an inbound connection ``[INTCP]`` , an outbound connection ``[OUTTCP]``  or a ``[DNS]`` recursion.  If ``[DNS]``    was recursed for an IP address you will also see the corresponding FQDN on the connection lines.
+Every line is prefixed with a ``[TAG]``  - this indicates either an inbound connection ``[INTCP]`` , an outbound connection ``[OUTTCP]``  or a ``[DNS]`` recursion.  If ``[DNS]``    was recursed for an IP address you will also see the corresponding FQDN on the connection lines. Every TCP SRC-DST-DPORT triplet is only printed once, regardless of connection count, DNS recursions are logged as they happen.
 
 ## Example Log
 
