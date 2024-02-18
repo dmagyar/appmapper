@@ -12,7 +12,7 @@ Unfortunately recording network traffic requires root permissions. Luckily the s
 
 ## I have logs now, what now?
 
-Every line is prefixed with a ``[TAG]``  - this indicates either an inbound connection ``[INTCP]`` , an outbound connection ``[OUTTCP]``  or a ``[DNS]`` recursion.  If ``[DNS]``    was recursed for an IP address you will also see the corresponding FQDN on the connection lines. Every TCP SRC-DST-DPORT triplet is only printed once, regardless of connection count, DNS recursions are logged as they happen.
+Every line is prefixed with a ``[TAG]``  - this indicates either an inbound connection ``[INTCP]`` , an outbound connection ``[OUTTCP]``  or a ``[DNS]`` recursion.  If ``[DNS]``    was recursed for an IP address you will also see the corresponding FQDN on the connection lines. Every TCP SRC-DST-DPORT triplet is only printed once, regardless of connection count. DNS recursions are logged as they happen.
 
 ## Example Log
 
