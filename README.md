@@ -6,6 +6,10 @@ Appmapper is a tool that attaches to your primary network interface and collects
 
 For linux just run ``appmapper-linux-install.sh`` from the repo it will deploy a small chroot into a directory of choice. Once complete run ``start.sh`` as root from the installation directory. Output will be shown on screen as well as logged to appmapper.log in the same directory.
 
+## Command line options
+
+``-interface <intfname>`` specifies a specific interface to listen on. Defaults to auto-detection based on default gateway.
+
 ## Running as root? DANGER!
 
 Unfortunately recording network traffic requires root permissions. Luckily the source code is available so you can check what the tool does exactly before executing it. Or just believe me and take your chances :)

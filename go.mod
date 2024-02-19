@@ -1,6 +1,6 @@
-module https://github.com/dmagyar/appmapper
+module github.build.ge.com/212328546/appmapper
 
-go 1.22
+go 1.16
 
 require (
 	github.com/gopacket/gopacket v1.2.0

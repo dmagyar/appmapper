@@ -1,9 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/gopacket/gopacket"
@@ -31,10 +34,10 @@ func (d DNSEntry) String() string {
 }
 
 var (
-	device       string = "en0"
-	selfip       net.IP
-	snapshot_len int32 = 1024
-	promiscuous  bool  = false
+	device       string = "auto"
+	selfip       net.IP = net.IPv4(0, 0, 0, 0)
+	snapshot_len int32  = 1024
+	promiscuous  bool   = false
 	err          error
 	timeout      time.Duration = pcap.BlockForever
 	handle       *pcap.Handle
@@ -159,9 +162,40 @@ func sysInit() {
 		panic(err)
 	}
 	iface, gw, src, err := r.Route(net.IPv4(0, 0, 0, 0))
-	selfip = src
-	device = iface.Name
-	fmt.Printf("[HOST] Interface: %s IP: %s Gateway: %s\n", device, src, gw)
+	if device == "auto" {
+		device = iface.Name
+		selfip = src
+		fmt.Printf("[HOST] Auto Interface: %s IP: %s Gateway: %s\n", device, src, gw)
+		return
+	}
+
+	ifaces, err := net.Interfaces()
+	for _, i := range ifaces {
+		if i.Name == device {
+			addrs, _ := i.Addrs()
+			sip := "0.0.0.0"
+			for _, addr := range addrs {
+				sip = strings.Split(addr.String(), "/")[0]
+			}
+
+			if net.ParseIP(sip).To4() == nil {
+				// v6 address, skip
+			}
+
+			selfip = net.ParseIP(sip)
+			fmt.Printf("Got interface IP: %s\n", selfip)
+		}
+	}
+	if selfip.Equal(net.IPv4(0, 0, 0, 0)) {
+		fmt.Printf("Unable to determine IP address for interface %s. Try auto-detect?\n", device)
+		os.Exit(-1)
+	}
+	fmt.Printf("[HOST] Manual Interface: %s IP: %s\n", device, selfip)
+}
+
+func init() {
+	flag.StringVar(&device, "interface", "auto", "Manually specify interface [defaults to auto-detect]")
+	flag.Parse()
 }
 
 func main() {
